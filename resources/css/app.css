@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.Container{
+    width:1000%;
+    max-width: 100%;
+    padding:10px 50px;
+    margin:0 auto;
+}
+
+html, body{
+    width: 100%;
+    overflow-x: hidden;
+}
