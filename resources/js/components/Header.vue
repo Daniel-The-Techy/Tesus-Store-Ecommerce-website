@@ -36,9 +36,10 @@
 
 
          <div class="flex items-center space-x-4">
+            
              <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
                  <div class="text-2xl">
-                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-8">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-6">
 <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
 </svg>
 
@@ -66,8 +67,8 @@
                          <div v-for="item in Carts" :key="item.id" class="flex  text-start px-8 md:px-4 mb-6">
                             <img src="../../assets/product.jpg" class="w-12 h-12">
                         <h3 class="ml-4 md:ml-12">{{ item.title }}</h3>
-                        <p class="ml-4 md:ml-12">{{ item.price * item.quantity }}</p>
-                        <p class="ml-8 md:ml-12">{{ item.quantity }}</p>
+                        <p class="ml-4 md:ml-12">{{ Math.floor(item.price * item.quantity) }}</p>
+                        <p class="ml-4 md:ml-12">{{ item.quantity }}</p>
                        
                         <svg xmlns="http://www.w3.org/2000/svg" @click="RemoveCart(item.id)" 
                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-8 text-red-400">
@@ -92,7 +93,7 @@
                         
                         </div>
              </a>
-             <a href="#" class="text-center text-gray-700  transition relative">
+             <router-link :to="{name: 'Account'}" class="text-center text-gray-700  transition relative">
                  <div class="text-2xl" @click="Accountshow=!Accountshow">
                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-6">
 <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
@@ -102,27 +103,29 @@
 
                  </div>
                
-                 <div v-if="User.token">
+                 <div v-if="User.isAuthenticated">
                  <div class="text-xs leading-3 relative">
-                    <a href="/Account/Home">Account</a>
+                   
+                    <p>Account</p>
+              
                  </div>
                  </div>
 
                     <div v-else >
                         <div class="text-xs leading-3">Account</div>
-                        <div v-if="Accountshow" class="absolute h-[8vh] px-8 -right-2 bg-white shadow-sm">
-                        <p>
+                        <div v-if="Accountshow" class="absolute h-[8vh] px-8 -right-2 rounded-sm bg-white shadow-sm">
+                        <p  class="mt-2">
                    <a href='/Register'>Register</a>
                    </p>
                    <p class="mt-2">
-                   <a href="/Login">Login</a>
+                   <a href="/Login" class="hover:text-gray-800">Login</a>
                    </p>
                     </div>
                     </div>
 
-                 
+                </router-link> 
                     
-             </a>
+           
          </div>
      </div>
  </header>
@@ -193,7 +196,7 @@ const wislist=computed(()=> User.Wishlist)
 
 const wishlistCount=computed(() => User.wishlistCount)
 
-console.log(User.wishlistCount)
+
 
 
 
@@ -208,7 +211,7 @@ const Carts=computed(() => CartStore.cart)
 User.getUser();
 
 const set=computed(() => User.Userid)
-//console.log()
+
 
 CartStore.getCart();
 
@@ -217,19 +220,17 @@ onMounted(store.getCategory())
 
 const category=computed(()=> store.category)
 
-console.log(User.isAuthenticated)
+
 function RemoveCart(id){
 
   CartStore.deleteCart(id)
   .then(() => {
     CartStore.sumCart
-   // console.log('Cart deleted successfully')
  
   })
 }
 
-//console.log(CartStore.sumCart)
-console.log(Carts)
+
 const Cart=computed(() => CartStore.cart.reduce((sum, data)=> sum + data.quantity, 0))
 
 </script>

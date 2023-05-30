@@ -5,7 +5,7 @@ import { UserStore } from "./Store/UserStore";
 //const store=useAuthUserStore();
 
 const axiosClient=axios.create({
-    baseURL:'https://TesusStore.dev/api'
+    baseURL:'https://TesusStore.test/api'
 
 })
 

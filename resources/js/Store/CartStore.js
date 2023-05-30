@@ -25,7 +25,7 @@ export const useCartStore = defineStore('Cart', {
     getters:{
 
            sumCart(){
-           return this.cart.reduce((sum, data)=> sum + data.quantity, 0)
+              return this.cart.reduce((sum, data)=> sum + data.quantity, 0)
            },
 
     

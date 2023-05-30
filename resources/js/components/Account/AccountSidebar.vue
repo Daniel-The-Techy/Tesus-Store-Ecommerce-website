@@ -1,14 +1,14 @@
 <template>
     
 <div class="col-span-3">
-    <div class="px-4 py-3 shadow flex items-center gap-4" v-for="item in data" :key="item.id">
-        <div class="flex-shrink-0">
+    <div class="px-4 py-3 bg-white shadow flex items-center gap-4" v-for="item in data" :key="item.id">
+        <div class="flex-shrink-0 ">
             <img :src="item.image" alt="profile"
                 class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
         </div>
         <div class="flex-grow">
             <p class="text-gray-600">Hello,</p>
-            <h4 class="text-gray-800 font-medium">{{ item.firstName}}</h4>
+            <h4 class="text-gray-800 font-medium">{{ item.firstName}} {{ item.lastName }}</h4>
         </div>
     </div>
 

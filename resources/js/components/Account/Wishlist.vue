@@ -1,13 +1,14 @@
 <template>
             <!-- wishlist -->
-            <div class="Container">
-            <div class="grid grid-row md:grid-cols-12  gap-24 pt-4 pb-16">
+            <div class="Container min-h-[50vh] ">
                 
-            <AccountSidebar/>
-            
 
+                
+                <h2 v-if="wishlist.length!==0" class="text-4xl font-bold text-center mb-3">{{ wishlist.length }} product is inside Wishlist</h2>
+           
+            
+            <div v-if="wishlist.length!==0">
         <div class="col-span-9 space-x-4">
-            <div v-if="wishlist">
             <div v-for="item in wishlist" :key="item.id">
             <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded mb-3">
                 <div class="w-28">
@@ -38,19 +39,21 @@
 
           
 
-        
+           
         </div>
-        <div v-else class="mt-5">
-                <h2 class="text-center text-3xl text-bold">Wishlist is empty</h2>
-            </div>
+       
        </div>
+
+       <div v-else class="mt-12 col-span-9">
+                <h2 class="text-center text-black text-6xl font-medium  text-bold">Wishlist is empty!!</h2>
+            </div>
        
        </div>
       
        <div class="ml-8 mt-2">
   <router-link :to="{name:'Account'}" class="bg-green-500 text-white px-8 py-2 rounded  cursor-pointer">back</router-link>
 </div>
-        </div>
+        
         
 
       
@@ -83,15 +86,16 @@ const wishlist=computed(() => User.Wishlist)
 console.log(wishlist)
 
 function removeWislist(id){
-   User.deleteWishlist(id)
+    User.deleteWishlist(id)
 .then(() => {
-    User.getWishlist()
+ 
     store.notify(
         {
             'type':'success',
             'message':'Wislist deleted successfully'
         }
     )
+    User.getWishlist()
 })
 }
 

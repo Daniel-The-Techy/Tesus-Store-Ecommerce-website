@@ -7,24 +7,24 @@
                 <form @submit.prevent="updateAddress">
                 <div>
                     <label for="company" class="text-gray-600">Company</label>
-                    <input type="text" name="company" id="company" v-model="model.company"
+                    <input type="text" name="company" id="company" v-model="model.company" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
                 <div>
                     <label for="region" class="text-gray-600">Country/Region</label>
-                    <input type="text" name="region" id="region" v-model="model.country"
+                    <input type="text" name="region" id="region" v-model="model.country" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="address" class="text-gray-600">Address 1</label>
-                    <input type="text" name="address" id="address" v-model="model.Address_1"
+                    <input type="text" name="address" id="address" v-model="model.Address_1" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label for="address" class="text-gray-600">Address 1</label>
-                    <input type="text" name="address" id="address" v-model="model.Address_2"
+                    <label for="address" class="text-gray-600">Address 2</label>
+                    <input type="text" name="address" id="address" v-model="model.Address_2" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
 
@@ -32,24 +32,24 @@
 
                 <div>
                     <label for="city" class="text-gray-600">City</label>
-                    <input type="text" name="city" id="city" v-model="model.city"
+                    <input type="text" name="city" id="city" v-model="model.city" required
                     class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
                 <div>
                     <label for="phone" class="text-gray-600">Phone number</label>
-                    <input type="number" name="phone" id="phone" v-model="model.phone_Number"
+                    <input type="number" name="phone" id="phone" v-model="model.phone_Number" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label for="company" class="text-gray-600">State</label>
-                    <input type="text" name="company" id="company" v-model="model.State"
+                    <label for="State" class="text-gray-600">State</label>
+                    <input type="text" name="company" id="company" v-model="model.State" required
                      class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label for="email" class="text-gray-600">PostalCode</label>
-                    <input type="number" name="Postal_code"  v-model="model.Postal_Code"
+                    <label for="PostalCode" class="text-gray-600">PostalCode</label>
+                    <input type="number" name="Postal_code"  v-model="model.Postal_Code" required
                     class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400">
                 </div>
 

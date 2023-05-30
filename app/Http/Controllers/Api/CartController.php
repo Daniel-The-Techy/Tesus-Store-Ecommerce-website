@@ -31,8 +31,9 @@ class CartController extends Controller
         return $deletedCart;
     }
 
-    public function increaseQuantity($id){
-        return CartService::updateQuantity($id);
+    public function increaseQuantity($id, Request $request){
+        $quantity=$request->input('quantity');
+        return CartService::updateQuantity($id, $quantity);
     }
 
    

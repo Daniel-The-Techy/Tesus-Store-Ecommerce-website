@@ -1,7 +1,7 @@
 <template>
      <!-- login -->
      <div class="contain py-16">
-        <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+        <div class="max-w-lg mx-auto shadow bg-white px-6 py-7 rounded overflow-hidden">
             <h2 class="text-2xl uppercase font-medium mb-1">Login</h2>
             <p class="text-gray-600 mb-6 text-sm">
                 welcome back customer
@@ -51,28 +51,22 @@
 
   <Footer/>
 
-    <!-- copyright -->
-    <div class="bg-gray-800 py-4">
-        <div class="container flex items-center justify-between">
-            <p class="text-white">&copy; TailCommerce - All Right Reserved</p>
-            <div>
-                <img src="../assets/images/methods.png" alt="methods" class="h-5">
-            </div>
-        </div>
-    </div>
-    <!-- ./copyright -->
-
+  
 </template>
 <script setup>
 
 import Footer from '../components/Footer.vue'
 import { UserStore } from '../Store/UserStore';
+import { useCartStore } from '../Store/CartStore';
 import {useRouter} from 'vue-router'
 import {ref} from 'vue'
 
 const store=UserStore()
 const router=useRouter()
 const errors=ref('')
+const cartStore=useCartStore()
+
+cartStore.getCart()
 
 const user=ref({
     'Email':'',
@@ -87,6 +81,8 @@ function LoginUser(){
                 name:'Account'
         
         })
+
+       
     })
     .catch((e) => {
       errors.value=e.response.data.error

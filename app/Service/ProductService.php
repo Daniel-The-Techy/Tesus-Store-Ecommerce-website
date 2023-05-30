@@ -12,7 +12,7 @@ class ProductService{
 
 
     public function getProducts(){
-        $this->setToken();
+         $this->setToken();
        $value=Cache::remember('products', 1440, function () {
              return Product::paginate(6);
        });
@@ -21,14 +21,12 @@ class ProductService{
 
 
     public function setToken(){
-        // $token=Session::getId();
          $token=Str::random(30);
-         //$token=Cookie::get('PHPSESSID');
              if(!Cookie::has('unique-token')){
               Cookie::queue(cookie('unique-token', $token, 1440));
              }
       
-             }
+       }
 
              public function getCategory(){
                 return category::get();
@@ -36,10 +34,10 @@ class ProductService{
 
               public function SearchProduct($name){
                 return Product::where('title', 'like',' %'.$name.'%')
-                ->orWhere('description', 'like',  '%'.$name.'%')
-                ->orWhere('title', 'like', '%'.$name.'%')
-                ->orWhere('price', 'like', '%'.$name.'%')
-                ->get();
+                   ->orWhere('description', 'like',  '%'.$name.'%')
+                    ->orWhere('title', 'like', '%'.$name.'%')
+                    ->orWhere('price', 'like', '%'.$name.'%')
+                     ->get();
               }
 
             

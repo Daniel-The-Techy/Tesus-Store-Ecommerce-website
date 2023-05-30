@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->string('password')->after('lastName');
-            $table->integer('phone_Number')->nullable()->after('image');
+            $table->string('password')->after('email');
         });
     }
 

@@ -21,7 +21,7 @@
         </style>
         
     </head>
-    <body class="antialiased bg-gray-100">
+    <body class="antialiased bg-gray-100 font-Proxima">
         <div id="app">
             @yield('content')
         </div>

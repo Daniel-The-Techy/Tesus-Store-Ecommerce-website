@@ -23,5 +23,9 @@ module.exports = {
        },
     },
   },
+
+  fontFamily:{
+    Proxima:['proxima_nova_rgregular']
+  },
   plugins: [],
 }

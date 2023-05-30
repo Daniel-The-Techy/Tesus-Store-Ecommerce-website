@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Proxima";
+    src: url("../assets/Proxima\ Nova\ Font.otf");
+  }
+
 
 .Container{
     width:1000%;
@@ -13,4 +18,10 @@
 html, body{
     width: 100%;
     overflow-x: hidden;
+}
+
+@media screen and  (min-width:280px) and (max-width:568px) {
+    .Container{
+        padding: 5px 20px;
+    }
 }

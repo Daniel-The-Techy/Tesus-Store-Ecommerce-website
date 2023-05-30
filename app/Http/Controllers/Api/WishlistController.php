@@ -14,7 +14,6 @@ class WishlistController extends Controller
     public function store(Request $request){
 
         $product_id=$request->input('Product_id');
-         //dd($request->user()->wishlist);
         return $request->user()->wishlist()->create([
             'Products_id'=>$product_id
         ]);

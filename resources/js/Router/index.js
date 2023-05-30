@@ -19,6 +19,7 @@ import PasswordUpdate from '../components/Account/ChangePassword.vue'
 import Wishlist from '../components/Account/wishlist.vue'
 import Checkout from '../components/checkOut.vue'
 import { UserStore } from "../Store/UserStore";
+import OrderConfirmation from '../components/OrderConfirmation.vue'
 
 const router= createRouter({
   history:createWebHistory(),
@@ -140,6 +141,14 @@ const router= createRouter({
             name:'Product',
             component:Product
           },
+
+          {
+                
+            path:'/order_Confirmation',
+            name:'Order_Confirmation',
+            component:OrderConfirmation
+          },
+
 
 
         ],

@@ -23,6 +23,14 @@ export const UserStore = defineStore('User', {
         return state.Wishlist.length
       },
 
+      isOnline(){
+        if(this.token !==null){
+           return true
+        }else{
+          return false
+        }
+      },
+
 
       loggedIn (){
         return  this.profile
@@ -113,12 +121,6 @@ export const UserStore = defineStore('User', {
       })
     },
 
-    updateCustomerAddress(data){
-      return axiosClient.post('/updateCustomerAddress', data)
-      .then(()=>{
-        console.log('updated successfully');
-      })
-    },
 
      async Login(user){
         return axiosClient.post('/CustomerLogin', user)
@@ -140,6 +142,7 @@ export const UserStore = defineStore('User', {
         this.profile=payload.data
         this.User_id=payload.data.id
         this.token=payload.token
+        this.isAuthenticated=true
         sessionStorage.setItem('token', this.token)
      },
 
@@ -159,6 +162,7 @@ export const UserStore = defineStore('User', {
       this.user=[]
       this.User_id=null
       this.token=null
+      this.isAuthenticated=false
       sessionStorage.clear()
      }
 

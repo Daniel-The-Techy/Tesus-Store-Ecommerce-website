@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->foreignId('products_id')->constrained('products');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('email');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('customers');
     }
 };

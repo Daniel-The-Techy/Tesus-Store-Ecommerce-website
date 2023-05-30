@@ -1,5 +1,6 @@
 <template>
  <!-- account wrapper -->
+ <div class="Container">
  <div class="grid grid-row md:grid-cols-12  gap-24 pt-4 pb-16" >
 
 <!-- sidebar -->
@@ -53,6 +54,7 @@
 
 
 </div>
+</div>
 <!-- ./account wrapper -->
 
 <Footer/>
@@ -63,12 +65,16 @@
 import AccountSidebar from '../Account/AccountSidebar.vue'
 import { UserStore } from '../../Store/UserStore';
 import { computed } from 'vue';
+import {useCartStore} from '../../Store/CartStore'
 import Footer from '../Footer.vue';
 
 
 const store=UserStore()
+const cartStore=useCartStore()
 
 store.getUser()
+
+cartStore.getCart()
 
 const User=computed(() => store.profile);
 

@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-
+            <div v-if="data.length!==0">
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 w-[130%] md:w-full  ">
                 <div v-for="item in data" :key="item.id">
                 <div class="bg-white shadow rounded overflow-hidden group ">
@@ -87,11 +87,11 @@
 
             <div class="flex">
                 <button
-         class="block w-1/2 py-1 text-center text-white  bg-orange-600 border border-primary rounded-b
+         class="block w-1/2 py-1 text-center text-white  bg-orange-500 border border-primary rounded-b
           hover:bg-black hover:text-primary transition" @click="addToCart(item.id)">   
           Add to cart</button>
           <button @click="createWishlist(item.id)"
-         class="block w-1/2 py-1 text-center text-white bg-orange-600 border border-primary rounded-b
+         class="block w-1/2 py-1 text-center text-white bg-orange-500 border border-primary rounded-b
           hover:bg-black hover:text-primary transition">   
           Add to Wishlist</button>
           </div>
@@ -99,11 +99,17 @@
                 </div>
                 </div>
 
+             
+                </div>
+
               
-
-
+             
 
             </div>
+            <div v-else>
+           <h2 class="text-center font-bold mt-12">Loading.......</h2>
+                </div>
+
         </div>
        
         <!-- ./products -->
@@ -125,31 +131,19 @@ import Notification from './Notification.vue';
 import { UserStore } from '../Store/UserStore';
 import { storeToRefs } from 'pinia';
 import Footer from './Footer.vue';
+ import UseCartComposable from './Composables/AddtoCart'
 //import Product from '../assets/product.jpg'
 
 const store=useProductStore();
 const CartStore=useCartStore();
 const User=UserStore()
 
+
+const {inserToCart, insertToWishlist}=UseCartComposable()
+
+
 function createWishlist(id){
-    User.addWishlist(id)
-    .then(() => {
-        User.getWishlist()
-        store.notify(
-            {
-            'type':'success',
-            'message':'Product added to wishlist'
-        }
-        )
-    })
-    .catch(() =>{
-        store.notify(
-            {
-            'type':'danger',
-            'message':'Register to your account to add to wishlist'
-        }
-        )
-    })
+   insertToWishlist(id)
 }
 
 const message=ref('');
@@ -169,38 +163,18 @@ function selected(event){
 
 
 onMounted(store.getProduct())
-//console.log(selected())
-
-//const data=store.products;
 
 const data = computed(() => store.products)
 
 
-//store.getLowPriceToHighPrice()
-//let all=computed(() => store.getAllCart)
-//console.log(all);
-
-//const quantity=computed(() => store.getQuantity)
-
-
-//console.log(store.getQuantity());
-
-
 
 function addToCart(id){
-    CartStore.insertToCart(id)
-    .then(() => {
-        CartStore.getCart()
-      //  console.log('product added to cart successfully');
-     store.notify(
-        {
-            'type':'success',
-            'message':'product added to Cart Successfully'
-        }
-     )
-    
-    })
+    inserToCart(id)
 }
+
+
+
+
 
 
 

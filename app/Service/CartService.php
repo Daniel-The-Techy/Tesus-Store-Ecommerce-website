@@ -23,17 +23,9 @@ class CartService{
     public function addToCart($id, $User_id, $quantity){
 
          if(!$this->check($id, $User_id)){
-            // 
-                   
-          //  $token= Cookie::get('unique-token');
-  //
-           // $user=Auth()->id();
-           
              $Auth=$User_id ?? 0;
              $this->quantity=$quantity ?? 1;
 
-             
-               //Cookie::forget('tokens');
               $Cart=Cart::create([
                  'user_id'=> $Auth,
                  'Product_id'=>$id,
@@ -44,33 +36,34 @@ class CartService{
 
                   return back()->with('status', 'Product added to Cart');
           }else{
-           
-
-            $this->updateQuantity($id);
-
-              
-  
+    
+            $this->updateQuantity($id, $quantity);
           }
       }
 
       public function check($id, $User_id){
         if($User_id !==null){
-        return Cart::where('Product_id', '=', $id)
-        ->where('id', $User_id)
-        ->first();
+           return Cart::where('Product_id', '=', $id)
+             ->where('id', $User_id)->first();
         }else{
           return Cart::where('Product_id', '=', $id)
-          ->where('Session_id', $this->token)
-          ->first();
+              ->where('Session_id', $this->token)->first();
         }
     }
 
-    public function updateQuantity($id){
-      //  $token=Cookie::get('unique-token');
+    public function updateQuantity($id, $quantity){
 
-         return Cart::where('Product_id', $id)
+      $quantityCount=$quantity ?? 1;
+
+         $cartQuantity=Cart::where('Product_id', $id)
          ->where('Session_id', $this->token)
-         ->increment('quantity');
+         ->first();
+
+            if($cartQuantity){
+              $cartQuantity->quantity+=$quantityCount;
+              $cartQuantity->save();
+            }
+         
         
       }
 
@@ -84,15 +77,11 @@ class CartService{
 
 
       public function getAllCart(){
-        //   $token=Cookie::get('unique-token');
-          // return Cart::select('id', 'product_id', 'quantity')->where('Session_id', $token)->get();
-            
              return Product::join('Carts', 'products.id', '=', 'carts.Product_id')
-             ->select('Products.*', 'carts.quantity')
-             ->where('Session_id', $this->token)
-             // ->where('carts.user_id', '>', 0)
-             // ->where('user_id','>', 0)
-              ->get();
+                ->select('Products.*', 'carts.quantity')
+                 ->where('Session_id', $this->token)
+                 ->where('carts.user_id', '=', 0)
+                 ->get();
             
          }
 

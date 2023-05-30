@@ -68,13 +68,13 @@
 
             <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
                 <button @click="addToCart(model.id)"
-                    class="bg-red-500 border border-red text-white px-8 py-2  font-medium rounded uppercase flex items-center gap-2   transition">
+                    class="bg-red-500 border border-red text-white px-8 py-2   rounded uppercase flex items-center gap-2   transition">
                     <i class="fa-solid fa-bag-shopping"></i> Add to cart
                 </button>
-                <a href="#"
-                    class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-primary transition">
+                <button @click="addToWishlist(model.id)"
+                    class="border border-gray-300 bg-emerald-500 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-white transition">
                     <i class="fa-solid fa-heart"></i> Wishlist
-                </a>
+            </button>
             </div>
 
             <div class="flex gap-3 mt-4">
@@ -293,6 +293,7 @@
     </div>
     </div>
     <!-- ./related product -->
+      <Notification/>
 
 </template>
 
@@ -302,7 +303,8 @@ import { useRoute } from 'vue-router';
 import { computed, ref, watch } from 'vue';
 import {useCartStore} from '../Store/CartStore'
 import { storeToRefs } from 'pinia';
-
+import UseCartComposable from './Composables/AddtoCart';
+import Notification from './Notification.vue';
 
 const store=useProductStore();
 const CartStore=useCartStore()
@@ -310,6 +312,7 @@ const route=useRoute()
 
 
 const { getCategoryId }=storeToRefs(store)
+const {inserToCart, insertToWishlist}=UseCartComposable()
 
 //console.log(getCategory.value)
 
@@ -324,12 +327,8 @@ let model=ref({
 
 let quantity=ref(1)
 
-function addToCart(id){
-    CartStore.insertToCart(id, quantity.value)
-    .then(() => {
-        CartStore.getCart()
-    })
-}
+
+
 
 watch( () => store.product.data, (newval, oldval) =>{
     model.value= JSON.parse(JSON.stringify(newval))
@@ -337,17 +336,25 @@ watch( () => store.product.data, (newval, oldval) =>{
 })
 
 function increment(){
-    
-    quantity.value=quantity.value +1
+    quantity.value=quantity.value + 1
     return quantity
-    
 }
 
 function decrement(){
     if(quantity.value !== 0){
-    quantity.value=quantity.value-1
-    return quantity
+       quantity.value=quantity.value-1
+           return quantity
     }
+}
+
+function addToWishlist(id){
+    insertToWishlist(id)
+}
+
+function addToCart(id){
+   inserToCart(id, quantity.value)
+    quantity.value=0
+
 }
 
 let slug=route.params.slug
@@ -356,9 +363,7 @@ if(slug){
 store.getProductBySlug(slug)
 }
 
-//const Product=computed(() => store.product)
 
-console.log(model.value)
 
 
 </script>

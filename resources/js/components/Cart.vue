@@ -1,7 +1,9 @@
 <template>
      <Notification/>
-    <div v-if="store.cart.length !==0">
-  <div class="container mx-auto mt-12">
+     
+    
+  <div class="container min-h-[50vh] mx-auto mt-12">
+    <div v-if="store.cart.length !==0" >
     <div class="flex flex-col md:flex-row shadow-md my-10">
       <div class="w-full  bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">
@@ -23,7 +25,7 @@
             <div class="flex flex-col justify-between ml-4 flex-grow">
               <span class="font-bold text-sm">{{item.title }}</span>
               <span class="text-red-500 text-xs">Apple</span>
-              <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs" @click="removeCart(item.id)">Remove</a>
+              <p class="font-semibold hover:text-red-500 text-gray-500 text-xs" @click="removeCart(item.id)">Remove</p>
             </div>
           </div>
           <div class="flex justify-center w-1/5 mx-3 md:mx-0">
@@ -81,23 +83,26 @@
 
     </div>
   </div>
-  </div>
-
   <div v-else>
-    <div class="text-center mt-16">
+    <div class="text-center">
   
-    <h1 class="text-3xl  md:text-7xl text-bold">
+    <h1 class="text-3xl md:text-7xl text-bold">
       No Cart is available</h1>
     </div>
+  </div>
+
+ 
+    
 <div class="text-center mt-12">
     <router-link :to="'Main'">
         <button class="px-8 py-2 bg-green-600 rounded cursor-pointer text-white border border-none ">continue shopping</button> 
     </router-link>
   </div>
   </div>
+  
 
   
- 
+ <Footer/>
 </template>
 
 
@@ -110,28 +115,19 @@ import { useProductStore } from '../Store/ProductStore';
 import {computed,onMounted, toRaw, ref} from 'vue'
 import { storeToRefs } from 'pinia';
 import Notification from './Notification.vue';
+import Footer from './Footer.vue';
 const store=useCartStore()
 
 let selected=ref('')
 const productstore=useProductStore();
 
-//productstore.getProduct();
+
 onMounted(store.getCart())
 
 const Cart=computed(() => store.cart)
 
 
-//let {cart}=storeToRefs(productstore)
-//let {products}=storeToRefs(productstore)
-//const {category}=storeToRefs(productstore)
 
-//const {getCartItem}=storeToRefs(productstore)
-//const datas=products.find((pro)=>pro.id === 7)
-//console.log(productstore.getCartItem);
-//const result=computed(() => productstore.getCartItem)
-
-//const basic=store.shipping.basicShipping;
-console.log(Cart)
 const sum=computed(()=> store.cart.reduce((sum, data) =>sum + data.price*data.quantity, 0))
 
  function updateQuantityy(id){
@@ -149,7 +145,7 @@ function removeCart(id){
   store.deleteCart(id)
   .then(() => {
     store.sumCart
-   // console.log('Cart deleted successfully')
+    
     productstore.notify({
         'type':'danger',
         'message':'Cart deleted successfully'
